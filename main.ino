@@ -16,8 +16,8 @@ char keys[ROWS][COLS] = {
   {'*','0','#','D'}
 };
 
-byte rowPins[ROWS] = {6, 7, 8, 9}; // baris pada keypad
-byte colPins[COLS] = {2, 3, 4, 5}; // kolom pada keypad
+byte rowPins[ROWS] = {2, 3, 4, 5}; // baris pada keypad
+byte colPins[COLS] = {6, 7, 8, 9}; // kolom pada keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS); // membuat keypad
 int redPin = 12; // pin untuk menyalakan led merah
 int greenPin = 13; // pin untuk menyalakan led hijau
@@ -33,15 +33,21 @@ void loop() {
     char key = keypad.getKey(); // membuat variabel key untuk mengambil keypad yang diinputkan
 
     if (key) {
-        if (key == password.charAt(posisi)) { // jika key yang diinputkan sama dengan karakter pada posisi
-            posisi++; // posisi bertambah
-            if (posisi == password.length()) { // jika posisi sama dengan panjang password
-                lockPosition(false); // membuat servo menjadi posisi terbuka
+        if (key == '*' || key == '#') { // jika key yang diinputkan adalah * atau #
+            lockPosition(true); // membuat servo menjadi posisi terkunci
+            posisi = 0; // posisi dikembalikan ke 0
+        } else {
+            if (key == password.charAt(posisi)) { // jika key yang diinputkan sama dengan karakter pada posisi
+                posisi++; // posisi bertambah
+                if (posisi == password.length()) { // jika posisi sama dengan panjang password
+                    lockPosition(false); // membuat servo menjadi posisi terbuka
+                    posisi = 0; // posisi dikembalikan ke 0
+                }
+            } else {
                 posisi = 0; // posisi dikembalikan ke 0
             }
-        } else {
-            posisi = 0; // posisi dikembalikan ke 0
         }
+
     }
 
     delay(100); // delay 100 ms
