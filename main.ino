@@ -5,22 +5,22 @@
 Servo myservo;  // membuat variabel servo
 const String password = "1234";
 int posisi = 0; // membuat variabel posisi
-const byte ROWS = 4; // banyaknya baris pada keypad
-const byte COLS = 4; // banyaknya kolom pada keypad
+const byte rows = 4; // banyaknya baris pada keypad
+const byte cols = 4; // banyaknya kolom pada keypad
 
 // membuat array untuk menampung karakter yang akan ditampilkan pada keypad
-char keys[ROWS][COLS] = {
+char keysMap[rows][cols] = {
   {'1','2','3','A'},
   {'4','5','6','B'},
   {'7','8','9','C'},
   {'*','0','#','D'}
 };
 
-byte rowPins[ROWS] = {2, 3, 4, 5}; // baris pada keypad
-byte colPins[COLS] = {6, 7, 8, 9}; // kolom pada keypad
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS); // membuat keypad
-int redPin = 12; // pin untuk menyalakan led merah
-int greenPin = 13; // pin untuk menyalakan led hijau
+byte rowPins[rows] = {2, 3, 4, 5}; // baris pada keypad
+byte colPins[cols] = {6, 7, 8, 9}; // kolom pada keypad
+Keypad keypad = Keypad(makeKeymap(keysMap), rowPins, colPins, rows, cols); // membuat keypad
+const int redPin = 12; // pin untuk menyalakan led merah
+const int greenPin = 13; // pin untuk menyalakan led hijau
 
 void setup() {
     pinMode(redPin, OUTPUT); // membuat pin merah menjadi output
